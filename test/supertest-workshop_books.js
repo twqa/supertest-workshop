@@ -1,40 +1,33 @@
-var request = require('supertest')('https://www.googleapis.com/books/v1/volumes');
+var request = require('supertest');
 var chai = require('chai');
 var expect = require('chai').expect;
 
+var config = require('../config/host_config.js')
+var url = config.host['google_books']
 
 // Test Google Books API
-describe('GOOGLE BOOKS API - VOLUMES',function(){
+describe('Test Google Books API',function(){
 
+    describe('Test Google Books - Volumes API', function(){
 
-    // Get book list that name includes "test", return http status 200 - OK
-    it('Get book list that name includes "test", return http status 200 - OK', function(done){
-        request.get('/?q=test')
+        request = request(url + '/volumes');
 
-            .expect(200)
+        it('Search books a key(ThoughtWorks) - Return 200 OK', function(done){
 
-            .end(function(err,res){
+            request
 
-//                console.log(res);
-                done(err);
+                .get('?q=ThoughtWorks')
+                .expect(200,done)
 
-            })
-
-    })
-
-
-
-    // Get book list that name includes "cucumber", return http status 200 - OK
-    it('Get book list that name includes "cucumber", return http status 200 - OK', function(done){
-
+        })
 
     })
 
+    describe('Test Google Books - Bookshelf API', function(){
 
-    // Retrieve the id from last case, then use this id to get the book info
-    it('Get the first book by id, return http status 200 - OK', function(done){
-
+ //       request = request(url+'/users/userId/bookshelves');
 
     })
+
 
 })
