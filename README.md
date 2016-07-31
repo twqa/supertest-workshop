@@ -3,15 +3,14 @@
 API automation test using supertest
 
 ## Getting Started
-Install the module with: `npm install supertest-workshop`
+Install the modules with: 'npm install'
 
-```javascript
-var supertest_workshop = require('supertest-workshop');
-supertest_workshop.awesome(); // "awesome"
-```
+Run test cases with 'mocha test/supertest-workshop_books.js' or 'grunt'
 
 ## Documentation
-_(Coming soon)_
+Launch Postman
+Import Google.postman_collection file which is under postman folder
+
 
 ## Examples
 _(Coming soon)_

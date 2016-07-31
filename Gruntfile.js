@@ -8,9 +8,7 @@ module.exports = function(grunt) {
             options: {
 
                 reporter: 'spec',
-                captureFile: 'test-report.html',
-                quiet: false,
-                clearRequireCache: false
+                captureFile: 'test-report.html'
 
             },
             src: ['test/*.js']
