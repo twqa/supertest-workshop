@@ -1,6 +1,12 @@
-# supertest-workshop
+# Supertest Workshop
 
 API automation test using supertest
+
+## Preparation
+Node.js - brew install nodejs
+
+Postman (Chrome Plugin)
+
 
 ## Getting Started
 Install the modules with: 'npm install'
