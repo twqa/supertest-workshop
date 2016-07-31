@@ -15,4 +15,6 @@ Run test cases with 'grunt' or 'grunt mochaTest' or 'mocha test/supertest-worksh
 
 ## Workshop Steps
 
-启动Postman并导入postman文件夹下的Google.postman_collection文件
+- 启动Postman并导入postman文件夹下的Google.postman_collection文件
+
+- 在Postman中执行第一个测试用例 - Search books with a keyword
