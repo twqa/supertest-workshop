@@ -18,7 +18,7 @@ Run test cases with 'grunt' or 'grunt mochaTest' or 'mocha test/supertest-worksh
 - 启动Postman并导入postman文件夹下的Google.postman_collection文件
 
 ### Scenario 1
-1. 在Postman中执行第1个测试用例 - Search books with a keyword
+1. 在Postman中执行第1个测试用例 - BOOKS_Search books with a keyword
 
 2. 用Supertest实现这个测试用例
 
@@ -46,7 +46,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
     })
 
 ### Scenario 2
-1. 在Postman中执行第2个测试用例 - Search books with two parameters (q=cucumber and maxResults=2)
+1. 在Postman中执行第2个测试用例 - BOOKS_Search books with two parameters (q=cucumber and maxResults=2)
 
 2. 用Supertest实现这个测试用例
 
@@ -112,7 +112,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
     })
 
 ### Scenario 3
-1. 在Postman中执行第3个测试用例 - Retrieves a Volume resource based on ID, the ID in request URL is from Scenario 2
+1. 在Postman中执行第3个测试用例 - BOOKS_Retrieves a Volume resource based on ID, the ID in request URL is from Scenario 2
 
 2. 用Supertest实现这个测试用例
 
@@ -144,6 +144,82 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
                 done(err);
 
             })
+
+### Scenario 4
+1. 在Postman中执行第4个测试用例 - SHEETS_Add a sheet
+- spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
+- Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
+
+2. 用Supertest实现这个测试用例
+> 为SHEETS API测试新建一个js文件
+
+3. 断言
+> http status - 200 OK
+> Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
+
+#### Refer to https://developers.google.com/books/docs/v1/reference/volumes/get
+#### Example
+POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
+
+var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheets');
+var chai = require('chai');
+var expect = require('chai').expect;
+
+var spreadsheetId = '1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE'
+var accessToken = 'Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw'
+
+var sheetId;
+var sheetName = 'juewen';
+
+describe('GOOGLE SHEETS API',function(){
+
+    it('Add a new sheet - Return 200', function(done){
+
+        this.timeout(10000);
+
+        var requestBody = {
+                            "requests": [
+                              {
+                                "addSheet": {
+                                  "properties": {
+                                    "title": sheetName
+                                  }
+                                }
+                              }
+                            ]
+                          }
+
+        request.post('/' + spreadsheetId + ':batchUpdate')
+
+        .set('Authorization', accessToken)
+        .set('Content-Type', 'application/json')
+
+        .send(requestBody)
+
+        .expect(200)
+
+        .expect(function(res){
+
+            //spreadsheetId in response is the same as the one in request URL
+            expect(res.body.spreadsheetId).to.equal(spreadsheetId);
+
+            //sheet name in response is the same as the one in request body
+            expect(res.body.replies[0].addSheet.properties.title).to.equal(sheetName);
+
+
+        })
+
+        .end(function(err, res){
+
+            //Retrieve sheet id for next scenarios
+            sheetId = res.body.replies[0].addSheet.properties.sheetId;
+            done(err);
+
+        })
+
+    })
+
+
 
 
 
