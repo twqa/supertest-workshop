@@ -32,7 +32,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
         request = request('https://www.googleapis.com/books/v1/volumes');
 
-        it('Search books with a keyword(q='test') - Return 200 OK', function(done){
+        it('Search books with a mandatory parameter(q="test") - Return 200 OK', function(done){
             this.timeout(10000)
 
             request
@@ -58,7 +58,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
 GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 
-    it('Search books with two parameters(q='cucumber'&maxResult=2) - Return 200 OK', function(done){
+    it('Search books with two parameters(q="cucumber"&maxResult=2) - Return 200 OK', function(done){
 
         var q = 'cucumber'
         var maxResults = 2
@@ -75,15 +75,18 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
             .expect(200)
 
             .expect(function(res) {
+                //Get item id for the first book
                 id = res.body.items[0].id;
                 var selfLinkLength = res.body.items[0].selfLink.split('/').length;
                 var selfLinkId = res.body.items[0].selfLink.split('/')[selfLinkLength - 1];
 
-                expect(res.body.items[0].volumeInfo.title.toLowerCase()).to.contain(bookname);
+                //Check book title contains the first parameter - cucumber
+                expect(res.body.items[0].volumeInfo.title.toLowerCase()).to.contain(q);
+                //Check total itmes <= the second parameter - 2
                 expect(res.body.items.length).be.at.most(maxResults);
-
+                //Check item id is the same as the id in selfLink
                 expect(selfLinkId).to.equal(id);
-                expect(res.body).to.have.any.keys('kind', 'totalItems', 'items');
+                //Check mandatory keys, e.g. kind, totalItems, items....
                 expect(res.body).to.include.keys('kind', 'totalItems', 'items');
 
             })

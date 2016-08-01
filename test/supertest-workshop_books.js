@@ -16,7 +16,7 @@ describe('Test Google Books API' ,function(){
 
         request = request(endpoint + '/volumes')
 
-        it('Search books with a keyword (e.g. "test") - Return 200 OK', function(done){
+        it('Search books with a mandatory parameter(q="test") - Return 200 OK', function(done){
 
             this.timeout(10000)
 
