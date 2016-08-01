@@ -37,17 +37,61 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
             request
 
-                .get('?q=ThoughtWorks')
+                .get('?q=test')
                 .expect(200,done)
 
         })
 
     })
 
-### Scenario 1
-1. 在Postman中执行第一个测试用例 - Search books with a keyword
+### Scenario 2
+1. 在Postman中执行第二个测试用例 - Search books with two parameters (q=cucumber and maxResults=2)
 
 2. 用Supertest实现这个测试用例
+
+3. 断言:
+
+#### Refer to https://developers.google.com/books/docs/v1/reference/volumes/list
+#### Example
+
+GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
+    it('Search books with two parameters(), return http status 200 - OK', function(done){
+
+        var bookname = 'cucumber'
+        var maxResults = 2
+
+        this.timeout(10000);
+
+        request.get('/')
+
+            .query({
+                q: bookname,
+                maxResults: maxResults
+            })
+
+            .expect(200)
+
+            .expect(function(res) {
+                id = res.body.items[0].id;
+                var selfLinkLength = res.body.items[0].selfLink.split('/').length;
+                var selfLinkId = res.body.items[0].selfLink.split('/')[selfLinkLength - 1];
+
+                expect(res.body.items[0].volumeInfo.title.toLowerCase()).to.contain(bookname);
+                expect(res.body.items.length).be.at.most(maxResults);
+
+                expect(selfLinkId).to.equal(id);
+                expect(res.body).to.have.any.keys('kind', 'totalItems', 'items');
+                expect(res.body).to.include.keys('kind', 'totalItems', 'items');
+
+            })
+
+            .end(function(err,res){
+
+               done(err);
+
+            })
+
+    })
 
 
 
