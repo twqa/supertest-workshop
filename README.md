@@ -53,13 +53,13 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 3. 断言
 > http status - 200 OK
 
-> 书名中包含第一个参数-q="cucumber"
+>> 书名中包含第一个参数-q="cucumber"
 
-> items的总个数不大于第二个参数-maxResult=2
+>> items的总个数不大于第二个参数-maxResult=2
 
-> selfLink里的id等于item id
+>> selfLink里的id等于item id
 
-> 'kind', 'totalItems', 'items'是mandatory的key
+>> 'kind', 'totalItems', 'items'是mandatory的key
 
 
 #### Refer to https://developers.google.com/books/docs/v1/reference/volumes/list
