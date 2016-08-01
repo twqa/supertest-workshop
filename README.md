@@ -222,7 +222,7 @@ POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
     })
 
 ### Scenario 5 - Homework:)
-- 用Supertest实现Postman中的第5个用例
+- 用Supertest实现Postman中的第5个用例 - SHEETS_Write to multiple ranges
 
 #### Refer to https://developers.google.com/sheets/samples/writing
 
@@ -290,6 +290,21 @@ PUT https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}
             })
 
     })
+
+### Scenario 7 - Homework :)
+
+- 用Supertest实现Postman中的第7个用例 - SHEETS_Read a single range
+
+- 请验证Scenario 7的response等于Scenario 6的Request Body
+
+#### Refer to https://developers.google.com/sheets/samples/reading
+
+### Scenario 8 - Homework :)
+
+- 用Supertest实现Postman中的第8个用例 - SHEETS_Delete a sheet by ID
+
+#### Refer to https://developers.google.com/sheets/samples/sheet
+
 
 
 
