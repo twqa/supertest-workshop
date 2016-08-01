@@ -155,7 +155,8 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 
 3. 断言
 > http status - 200 OK
-> Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
+> Response里的spreadsheetId等于request URL里的spreadsheetID
+> Response里的sheet name等于request body里的sheet name
 
 #### Refer to https://developers.google.com/sheets/samples/sheet
 #### Example
@@ -219,6 +220,13 @@ POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
 
         })
     })
+
+### Scenario 5 - Homework:)
+- 用Supertest实现Postman中的第5个用例
+
+#### Refer to https://developers.google.com/sheets/samples/sheet
+
+
 
 
 
