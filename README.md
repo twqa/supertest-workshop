@@ -11,6 +11,8 @@ Postman (Chrome Plugin)
 ## Getting Started
 Install the modules with: 'npm install'
 
+install the grunt with :"npm install -g grunt"
+
 Run test cases with 'grunt' or 'grunt mochaTest' or 'mocha test/supertest-workshop_books.js'
 
 ## Workshop Steps
