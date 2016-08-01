@@ -224,7 +224,74 @@ POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
 ### Scenario 5 - Homework:)
 - 用Supertest实现Postman中的第5个用例
 
+#### Refer to https://developers.google.com/sheets/samples/writing
+
+### Scenario 6
+1. 在Postman中执行第4个测试用例 - SHEETS_Add a sheet
+> spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
+> Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
+
+2. 用Supertest实现这个测试用例
+> 为SHEETS API测试新建一个js文件
+
+3. 断言
+> http status - 200 OK
+> Response里的spreadsheetId等于request URL里的spreadsheetID
+> Response里的sheet name等于request body里的sheet name
+
 #### Refer to https://developers.google.com/sheets/samples/sheet
+#### Example
+PUT https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?valueInputOption=USER_ENTERED
+
+    var range = sheetName +'!A1:D4'
+
+    var requestBody = {
+                        "range": "Sheet1!A1:D5",
+                        "majorDimension": "ROWS",
+                        "values": [
+                          ["Item", "Cost", "Stocked", "Ship Date"],
+                          ["Wheel", "$20.50", "4", "3/1/2016"],
+                          ["Door", "$15", "2", "3/15/2016"],
+                          ["Engine", "$100", "1", "30/20/2016"]
+                        ]
+                      }
+
+    it('Write a single range - Return 200', function(done){
+
+        this.timeout(10000);
+
+        request
+
+            .put('/'+spreadsheetId+'/values/'+range)
+            .query({
+                valueInputOption:'USER_ENTERED'
+            })
+
+            .set('Authorization', accessToken)
+            .set('Content-Type', 'application/json')
+            .send(requestBody)
+            .expect(200)
+
+            .expect(function(res){
+
+                //spreadsheetId in response is the same as the one in request URL
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
+
+                //range in response is the same the one in request body
+                expect(res.body.updatedRange).to.equal(range)
+
+
+            })
+
+            .end(function(err,res){
+
+                done(err);
+
+            })
+
+    })
+
+
 
 
 
