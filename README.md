@@ -49,7 +49,9 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
 2. 用Supertest实现这个测试用例
 
-3. 断言:
+3. 断言
+> http status - 200 OK
+> 书名中包含第一个参数-"cucumber"
 
 #### Refer to https://developers.google.com/books/docs/v1/reference/volumes/list
 #### Example
@@ -58,7 +60,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 
     it('Search books with two parameters(q='cucumber'&maxResult=2) - Return 200 OK', function(done){
 
-        var bookname = 'cucumber'
+        var q = 'cucumber'
         var maxResults = 2
 
         this.timeout(10000);
@@ -66,7 +68,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
         request.get('/')
 
             .query({
-                q: bookname,
+                q: q,
                 maxResults: maxResults
             })
 
