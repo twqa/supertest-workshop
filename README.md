@@ -161,54 +161,54 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 #### Example
 POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
 
-describe('GOOGLE SHEETS API',function(){
+    describe('GOOGLE SHEETS API',function(){
 
-    it('Add a new sheet - Return 200', function(done){
+        it('Add a new sheet - Return 200', function(done){
 
-        this.timeout(10000);
+            this.timeout(10000);
 
-        var requestBody = {
-                            "requests": [
-                              {
-                                "addSheet": {
-                                  "properties": {
-                                    "title": sheetName
+            var requestBody = {
+                                "requests": [
+                                  {
+                                    "addSheet": {
+                                      "properties": {
+                                        "title": sheetName
+                                      }
+                                    }
                                   }
-                                }
+                                ]
                               }
-                            ]
-                          }
 
-        request.post('/' + spreadsheetId + ':batchUpdate')
+            request.post('/' + spreadsheetId + ':batchUpdate')
 
-        .set('Authorization', accessToken)
-        .set('Content-Type', 'application/json')
+            .set('Authorization', accessToken)
+            .set('Content-Type', 'application/json')
 
-        .send(requestBody)
+            .send(requestBody)
 
-        .expect(200)
+            .expect(200)
 
-        .expect(function(res){
+            .expect(function(res){
 
-            //spreadsheetId in response is the same as the one in request URL
-            expect(res.body.spreadsheetId).to.equal(spreadsheetId);
+                //spreadsheetId in response is the same as the one in request URL
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId);
 
-            //sheet name in response is the same as the one in request body
-            expect(res.body.replies[0].addSheet.properties.title).to.equal(sheetName);
+                //sheet name in response is the same as the one in request body
+                expect(res.body.replies[0].addSheet.properties.title).to.equal(sheetName);
 
+
+            })
+
+            .end(function(err, res){
+
+                //Retrieve sheet id for next scenarios
+                sheetId = res.body.replies[0].addSheet.properties.sheetId;
+                done(err);
+
+            })
 
         })
-
-        .end(function(err, res){
-
-            //Retrieve sheet id for next scenarios
-            sheetId = res.body.replies[0].addSheet.properties.sheetId;
-            done(err);
-
-        })
-
     })
-})
 
 
 
