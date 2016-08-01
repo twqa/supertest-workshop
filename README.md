@@ -51,15 +51,15 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 2. 用Supertest实现这个测试用例
 
 3. 断言
-> http status - 200 OK
+>- http status - 200 OK
 
-> 书名中包含第一个参数-q="cucumber"
+>- 书名中包含第一个参数-q="cucumber"
 
->> items的总个数不大于第二个参数-maxResult=2
+>- items的总个数不大于第二个参数-maxResult=2
 
->> selfLink里的id等于item id
+>- selfLink里的id等于item id
 
->> 'kind', 'totalItems', 'items'是mandatory的key
+>- 'kind', 'totalItems', 'items'是mandatory的key
 
 
 #### Refer to https://developers.google.com/books/docs/v1/reference/volumes/list
@@ -117,8 +117,8 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 2. 用Supertest实现这个测试用例
 
 3. 断言
-> http status - 200 OK
-> Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
+>- http status - 200 OK
+>- Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
 
 #### Refer to https://developers.google.com/books/docs/v1/reference/volumes/get
 #### Example
@@ -147,16 +147,16 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 
 ### Scenario 4
 1. 在Postman中执行第4个测试用例 - SHEETS_Add a sheet
-> spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
-> Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
+>- spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
+>- Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
 
 2. 用Supertest实现这个测试用例
-> 为SHEETS API测试新建一个js文件
+> 新建一个js文件
 
 3. 断言
-> http status - 200 OK
-> Response里的spreadsheetId等于request URL里的spreadsheetID
-> Response里的sheet name等于request body里的sheet name
+>- http status - 200 OK
+>- Response里的spreadsheetId等于request URL里的spreadsheetID
+>- Response里的sheet name等于request body里的sheet name
 
 #### Refer to https://developers.google.com/sheets/samples/sheet
 #### Example
@@ -304,6 +304,8 @@ PUT https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}
 - 用Supertest实现Postman中的第8个用例 - SHEETS_Delete a sheet by ID
 
 #### Refer to https://developers.google.com/sheets/samples/sheet
+
+#### Grunt运行所有books和sheets API的用例, check测试结果
 
 
 
