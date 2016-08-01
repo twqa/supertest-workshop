@@ -5,40 +5,37 @@ var endpoint = 'https://www.googleapis.com/books/v1'
 
 /* Configurate endpoint in a separate config file
 var config = require('../config/host_config.js')
-var url = config.host['google_books']
+var endpoint = config.host['google_books']
 */
 
 
 // Test Google Books API
-describe('Test Google Books API',function(){
+describe('Test Google Books API' ,function(){
 
     describe('Test Google Books - Volumes API', function(){
 
-        request = request(endpoint + '/volumes');
+        request = request(endpoint + '/volumes')
 
-        it('Search books a key(ThoughtWorks) - Return 200 OK', function(done){
+        it('Search books with a keyword (e.g. "test") - Return 200 OK', function(done){
+
             this.timeout(10000)
 
             request
-
-                .get('?q=ThoughtWorks')
-                .expect(200,done)
-
-        })
-
-        it('', function(done){
-
-
+                .get('?q=test')
+                .expect(200, done)
 
         })
 
-    })
-
-    describe('Test Google Books - Bookshelf API', function(){
-
- //       request = request(url+'/users/userId/bookshelves');
 
     })
 
+//    describe('Test Google Books - Bookshelf API', function(){
+//
+//       request = request(endpoint + '/users/userId/bookshelves')
+//
+//       it('Test....', function(){
+//
+//
+//    })
 
 })

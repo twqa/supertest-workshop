@@ -22,6 +22,8 @@ Run test cases with 'grunt' or 'grunt mochaTest' or 'mocha test/supertest-worksh
 
 2. 用Supertest实现这个测试用例
 
+3. 断言: http status - 200 OK
+
 #### Refer to https://developers.google.com/books/docs/v1/reference/volumes/list
 #### Example
 GET https://www.googleapis.com/books/v1/volumes?q=test
@@ -30,7 +32,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
         request = request('https://www.googleapis.com/books/v1/volumes');
 
-        it('Search books a key(ThoughtWorks) - Return 200 OK', function(done){
+        it('Search books with a keyword(e.g. "test") - Return 200 OK', function(done){
             this.timeout(10000)
 
             request
@@ -39,8 +41,13 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
                 .expect(200,done)
 
         })
-        
+
     })
+
+### Scenario 1
+1. 在Postman中执行第一个测试用例 - Search books with a keyword
+
+2. 用Supertest实现这个测试用例
 
 
 
