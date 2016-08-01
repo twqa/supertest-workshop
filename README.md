@@ -147,8 +147,8 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 
 ### Scenario 4
 1. 在Postman中执行第4个测试用例 - SHEETS_Add a sheet
-- spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
-- Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
+> spreadsheetId: 1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE
+> Access Token: Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw
 
 2. 用Supertest实现这个测试用例
 > 为SHEETS API测试新建一个js文件
