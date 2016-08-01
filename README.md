@@ -18,7 +18,7 @@ Run test cases with 'grunt' or 'grunt mochaTest' or 'mocha test/supertest-worksh
 - 启动Postman并导入postman文件夹下的Google.postman_collection文件
 
 ### Scenario 1
-1. 在Postman中执行第一个测试用例 - Search books with a keyword
+1. 在Postman中执行第1个测试用例 - Search books with a keyword
 
 2. 用Supertest实现这个测试用例
 
@@ -46,7 +46,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
     })
 
 ### Scenario 2
-1. 在Postman中执行第二个测试用例 - Search books with two parameters (q=cucumber and maxResults=2)
+1. 在Postman中执行第2个测试用例 - Search books with two parameters (q=cucumber and maxResults=2)
 
 2. 用Supertest实现这个测试用例
 
@@ -91,13 +91,13 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 
                 //Check book title contains the first parameter - cucumber
                 expect(res.body.items[0].volumeInfo.title.toLowerCase()).to.contain(q);
-                
+
                 //Check total itmes <= the second parameter - 2
                 expect(res.body.items.length).be.at.most(maxResults);
-                
+
                 //Check item id is the same as the id in selfLink
                 expect(selfLinkId).to.equal(id);
-                
+
                 //Check mandatory keys, e.g. kind, totalItems, items....
                 expect(res.body).to.include.keys('kind', 'totalItems', 'items');
 
@@ -110,6 +110,41 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
             })
 
     })
+
+### Scenario 3
+1. 在Postman中执行第3个测试用例 - Retrieves a Volume resource based on ID, the ID in request URL is from Scenario 2
+
+2. 用Supertest实现这个测试用例
+
+3. 断言
+> http status - 200 OK
+> Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
+
+#### Refer to https://developers.google.com/books/docs/v1/reference/volumes/get
+#### Example
+
+GET https://www.googleapis.com/books/v1/volumes/{ID}
+
+    it('Retrieves a Volume resource based on ID that is from last case - Return 200', function(done){
+
+        this.timeout(10000);
+
+        request.get('/' + id)
+            .expect(200)
+
+            .expect(function(res){
+
+                // Check the id in response is the same as parameter
+                expect(res.body.id).to.equal(id)
+
+            })
+
+            .end(function(err,res){
+
+                done(err);
+
+            })
+
 
 
 
