@@ -161,6 +161,16 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 #### Example
 POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
 
+    var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheets');
+    var chai = require('chai');
+    var expect = require('chai').expect;
+
+    var spreadsheetId = '1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE'
+    var accessToken = 'Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw'
+
+    var sheetId;
+    var sheetName = 'juewen';
+
     describe('GOOGLE SHEETS API',function(){
 
         it('Add a new sheet - Return 200', function(done){
