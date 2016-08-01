@@ -51,7 +51,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 2. 用Supertest实现这个测试用例
 
 3. 断言
-> http status - 200 OK\n
+> http status - 200 OK \n
 
 > 书名中包含第一个参数-q="cucumber"
 
