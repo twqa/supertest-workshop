@@ -32,7 +32,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
         request = request('https://www.googleapis.com/books/v1/volumes');
 
-        it('Search books with a keyword(e.g. "test") - Return 200 OK', function(done){
+        it('Search books with a keyword(q='test') - Return 200 OK', function(done){
             this.timeout(10000)
 
             request
@@ -56,7 +56,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 
 GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 
-    it('Search books with two parameters(), return http status 200 - OK', function(done){
+    it('Search books with two parameters(q='cucumber' and maxResult=2), return http status 200 - OK', function(done){
 
         var bookname = 'cucumber'
         var maxResults = 2
