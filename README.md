@@ -51,7 +51,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=test
 2. 用Supertest实现这个测试用例
 
 3. 断言
-> http status - 200 OK \n
+> http status - 200 OK
 
 > 书名中包含第一个参数-q="cucumber"
 
@@ -91,10 +91,13 @@ GET https://www.googleapis.com/books/v1/volumes?q=cucumber&maxResults=2
 
                 //Check book title contains the first parameter - cucumber
                 expect(res.body.items[0].volumeInfo.title.toLowerCase()).to.contain(q);
+                
                 //Check total itmes <= the second parameter - 2
                 expect(res.body.items.length).be.at.most(maxResults);
+                
                 //Check item id is the same as the id in selfLink
                 expect(selfLinkId).to.equal(id);
+                
                 //Check mandatory keys, e.g. kind, totalItems, items....
                 expect(res.body).to.include.keys('kind', 'totalItems', 'items');
 
