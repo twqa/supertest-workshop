@@ -157,19 +157,9 @@ GET https://www.googleapis.com/books/v1/volumes/{ID}
 > http status - 200 OK
 > Response里的Item ID等于request URL里的ID及Sceanrio2中返回的ID
 
-#### Refer to https://developers.google.com/books/docs/v1/reference/volumes/get
+#### Refer to https://developers.google.com/sheets/samples/sheet
 #### Example
 POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate
-
-var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheets');
-var chai = require('chai');
-var expect = require('chai').expect;
-
-var spreadsheetId = '1gU8HQ72E7ECWqQYINSE2zhJlFiSpqMTVG3ShnzJQquE'
-var accessToken = 'Bearer ya29.CjAyA3d9_ns2M1Mm9sl4_y8qIV_wgj5kU6tdBcyTj1r69aX4QBcADNfN42HhnkoGoSw'
-
-var sheetId;
-var sheetName = 'juewen';
 
 describe('GOOGLE SHEETS API',function(){
 
@@ -218,7 +208,7 @@ describe('GOOGLE SHEETS API',function(){
         })
 
     })
-
+})
 
 
 
