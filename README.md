@@ -246,7 +246,7 @@ PUT https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}
     var range = sheetName +'!A1:D4'
 
     var requestBody = {
-                        "range": "Sheet1!A1:D5",
+                        "range": range,
                         "majorDimension": "ROWS",
                         "values": [
                           ["Item", "Cost", "Stocked", "Ship Date"],
