@@ -43,8 +43,6 @@ describe('Test Google Books API' ,function(){
         it('Retrieves a Volume resource based on ID that is from last case - Return 200', function(done) {
 
             this.timeout(80000)
-            console.log("retrieve by id")
-            console.log(id)
 
             request.get('/' + id)
                 .expect(function(res){
