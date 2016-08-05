@@ -22,11 +22,6 @@ describe('Test Google Books API' ,function(){
 
             request
                 .get('?q=test')
-                //.get('/')
-                //.query({
-                //q : "test"
-                //    MaxResult:2
-                // })
                 .expect(200,done)
 
         });
@@ -39,11 +34,8 @@ describe('Test Google Books API' ,function(){
             request.get('/')
                 .query({ q: ' cucumber' ,MaxResult:2})
                 .expect(function (res) {
-                    //console.log(res)
-                    console.log("test")
                      id = res.body.items[0].id
                    expect(res.body.items[0].id).to.equal('0dge3Xh6EjUC')
-                    //done()
                 }).end(done)
 
         });
@@ -51,17 +43,21 @@ describe('Test Google Books API' ,function(){
         it('Retrieves a Volume resource based on ID that is from last case - Return 200', function(done) {
 
             this.timeout(80000)
+            console.log("retrieve by id")
             console.log(id)
 
             request.get('/' + id)
-
-                .expect(function (res) {
-
-                    // Check the id in response is the same as parameter
+                .expect(function(res){
                     expect(res.body.id).to.equal(id)
 
+                })
+                .end(done)
+            //or
+            //    .end(function(res){
+            //        expect(res.body.id).to.equal(id)
+            //        done()
+            //    })
 
-                }).end(done())
 
         })
 
