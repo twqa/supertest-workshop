@@ -2,12 +2,13 @@ var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheet
 var chai = require('chai');
 var expect = require('chai').expect;
 
-var spreadsheetId = '1CvdK8uLhvLKyyFmD8Lap53Fe_zgRtEJIX2QVA27W6Xg'
-var accessToken = 'Bearer ya29.Ci82AwlBEUkAn1Lc1QXgnTpydddnAwYv_GaeV1K4Vxn_NWNj3KnoA5j0hXCA20xg0Q'
+var spreadsheetId = '1zevlByGtRPv5_0A-Nz9RE6x4pPVtEjA5_XZHGEJQyW0'
+var accessToken = 'Bearer ya29.Ci85A3IiYqUP2bJizdciwUWHqBz74qhOod46xoEMl5hgNF-u0cDaapEoVnyqmckljw'
 
-var titleName = 'Pingping1';
+var titleName = 'pingping2';
 var jsonType = 'application/json'
 var dataRange = titleName + "!A1:C4"
+var deleteId
 
 var singleBody = {
     range: dataRange,
@@ -31,6 +32,7 @@ describe('GOOGLE SHEETS API', function () {
                 {
                     "addSheet": {
                         "properties": {
+                            "sheetId":"1688769723",
                             "title": titleName,
                             "gridProperties": {
                                 "rowCount": 20,
@@ -54,7 +56,7 @@ describe('GOOGLE SHEETS API', function () {
             .send(requestBody)
 
             .expect(function (res) {
-                console.log(res.body.spreadsheetId)
+                deleteId = res.body.replies[0].addSheet.properties.sheetId
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId);
                 expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName);
             }).end(done)
@@ -70,8 +72,8 @@ describe('GOOGLE SHEETS API', function () {
             .send(singleBody)
 
             .expect(function (res) {
-                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
 
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
                 expect(res.body.updatedRange).to.equal(dataRange)
                 expect(res.body.updatedRows).to.equal(4)
             }).end(done)
@@ -95,7 +97,7 @@ describe('GOOGLE SHEETS API', function () {
             "valueInputOption": "USER_ENTERED",
             "data": [
                 {
-                    "range": "Pingping1!A5:C5",
+                    "range": "pingping1!A5:C5",
                     "majorDimension": "ROWS",
                     "values": [
                         ["pingping", "female", "11/11/1990"]
@@ -117,11 +119,34 @@ describe('GOOGLE SHEETS API', function () {
             .set('Content-Type', jsonType)
             .send(requestBody)
             .expect(function (res) {
-                expect(res.body.responses[0].updatedRange).to.equal('Pingping1!A5:C5')
+                expect(res.body.responses[0].updatedRange).to.equal('pingping1!A5:C5')
                 expect(res.body.responses[1].updatedRange).to.equal('ppyao!A1:C2')
 
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
 
+
+            }).end(done)
+    });
+
+    it('delete a sheet by ID', function (done) {
+        var deleteBody = {
+            "requests": [
+                {
+                    "deleteSheet": {
+                        "sheetId": deleteId
+                    }
+
+                }
+            ]
+        }
+
+        request.post('/' + spreadsheetId + ':batchUpdate')
+            .set('Authorization',accessToken)
+            .set('Content-Type',jsonType)
+            .send(deleteBody)
+            .expect(function(res){
+
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
 
             }).end(done)
     })
