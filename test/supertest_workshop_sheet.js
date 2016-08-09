@@ -2,12 +2,15 @@ var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheet
 var chai = require('chai');
 var expect = require('chai').expect;
 
-var spreadsheetId = '1zevlByGtRPv5_0A-Nz9RE6x4pPVtEjA5_XZHGEJQyW0'
-var accessToken = 'Bearer ya29.Ci85A3IiYqUP2bJizdciwUWHqBz74qhOod46xoEMl5hgNF-u0cDaapEoVnyqmckljw'
+var spreadsheetId = '1aeMS775XFKUk44CZ23g-3H5GR3h_xNawydaFPICLjaU'
+var accessToken = 'Bearer ya29.Ci86AyphwhFEQ4Khs2Ecdz02qj2iP1T2V-ZFyi3gOoGcMCBEa7kNRZ8SoApJtuCc7g'
 
-var titleName = 'pingping2';
+
+var titleName = "YaoPingping"
+var titleName1 = 'pingping1';
+var titleName2 = 'ppyao'
 var jsonType = 'application/json'
-var dataRange = titleName + "!A1:C4"
+var dataRange = titleName1 + "!A1:C4"
 var deleteId
 
 var singleBody = {
@@ -23,16 +26,16 @@ var singleBody = {
 
 describe('GOOGLE SHEETS API', function () {
 
-    it('Add a new sheet -Pingping Yao', function (done) {
+    it('Add a new sheet -YaoPingping', function (done) {
 
         this.timeout(10000);
 
-        var requestBody = {
+        var singleSheetBody = {
             "requests": [
                 {
                     "addSheet": {
                         "properties": {
-                            "sheetId":"1688769723",
+                            "sheetId": "1688769723",
                             "title": titleName,
                             "gridProperties": {
                                 "rowCount": 20,
@@ -48,19 +51,75 @@ describe('GOOGLE SHEETS API', function () {
                 }
             ]
         }
-        request.post('/' + spreadsheetId + ':batchUpdate')
 
+        request.post('/' + spreadsheetId + ':batchUpdate')
             .set('Authorization', accessToken)
             .set('Content-Type', jsonType)
-
-            .send(requestBody)
-
+            .send(singleSheetBody)
             .expect(function (res) {
+                console.log(res.body)
                 deleteId = res.body.replies[0].addSheet.properties.sheetId
-                expect(res.body.spreadsheetId).to.equal(spreadsheetId);
-                expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName);
+                console.log(res.body.replies[0].addSheet.properties.sheetId)
+                console.log(res.body)
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
+                expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName)
             }).end(done)
     });
+
+    it('Add multiple sheets - ppyao & pingping1',function(done){
+        this.timeout(10000)
+        var requestBody = {
+            "requests": [
+                {
+                    "addSheet": {
+                        "properties": {
+                            "sheetId": "1688769724",
+                            "title": titleName1,
+                            "gridProperties": {
+                                "rowCount": 20,
+                                "columnCount": 12
+                            },
+                            "tabColor": {
+                                "red": 1.0,
+                                "green": 0.3,
+                                "blue": 0.4
+                            }
+                        }
+                    }
+                }, {
+                    "addSheet": {
+                        "properties": {
+                            "sheetId": "1688769725",
+                            "title": titleName2,
+                            "gridProperties": {
+                                "rowCount": 20,
+                                "columnCount": 12
+                            },
+                            "tabColor": {
+                                "red": 1.0,
+                                "green": 0.3,
+                                "blue": 0.4
+                            }
+                        }
+                    }
+                }
+
+            ]
+        }
+
+        request.post('/' + spreadsheetId + ':batchUpdate')
+            .set('Authorization', accessToken)
+            .set('Content-Type', jsonType)
+            .send(requestBody)
+            .expect(function(res){
+                console.log(res)
+                expect(res.body.spreadsheetId).to.equal(spreadsheetId)
+                expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName1)
+                expect(res.body.replies[1].addSheet.properties.title).to.equal(titleName2)
+            }).end(done)
+
+    });
+
 
     it('Add a content to single range', function (done) {
         this.timeout(8000)
@@ -93,7 +152,7 @@ describe('GOOGLE SHEETS API', function () {
 
     it('Write to multiple ranges', function (done) {
 
-        var requestBody ={
+        var requestBody = {
             "valueInputOption": "USER_ENTERED",
             "data": [
                 {
@@ -113,17 +172,16 @@ describe('GOOGLE SHEETS API', function () {
                 }
             ]
         }
-        request.post('/' + spreadsheetId +'/values:batchUpdate')
+        request.post('/' + spreadsheetId + '/values:batchUpdate')
             .query({valueInputOption: 'USER_ENTERED'})
             .set('Authorization', accessToken)
             .set('Content-Type', jsonType)
             .send(requestBody)
             .expect(function (res) {
+
                 expect(res.body.responses[0].updatedRange).to.equal('pingping1!A5:C5')
                 expect(res.body.responses[1].updatedRange).to.equal('ppyao!A1:C2')
-
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
-
 
             }).end(done)
     });
@@ -141,11 +199,12 @@ describe('GOOGLE SHEETS API', function () {
         }
 
         request.post('/' + spreadsheetId + ':batchUpdate')
-            .set('Authorization',accessToken)
-            .set('Content-Type',jsonType)
+            .set('Authorization', accessToken)
+            .set('Content-Type', jsonType)
             .send(deleteBody)
-            .expect(function(res){
+            .expect(function (res) {
 
+               console.log(res.body)
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
 
             }).end(done)
