@@ -323,6 +323,7 @@ grunt mochaTest  -- reporter mochawesome
 
 3.if you don't want to excute above command, you can modify your grunt file like below:
 
+```
 mochaTest: {
             test: {
                 options: {
@@ -332,6 +333,7 @@ mochaTest: {
                 src: ['test/*.js']
             }
         }
+```
 
 
 
