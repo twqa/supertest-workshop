@@ -321,6 +321,20 @@ npm install --save-dev mochawesome
 
 grunt mochaTest  -- reporter mochawesome
 
+3.if you don't want to excute above command, you can modify your grunt file like below:
+
+mochaTest: {
+            test: {
+                options: {
+                    reporter: 'mochawesome', //You need to change this !
+                    captureFile: 'results.html',
+                },
+                src: ['test/*.js']
+            }
+        }
+
+
+
 
 
 
