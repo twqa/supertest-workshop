@@ -2,8 +2,8 @@ var request = require('supertest')('https://sheets.googleapis.com/v4/spreadsheet
 var chai = require('chai');
 var expect = require('chai').expect;
 
-var spreadsheetId = '1aeMS775XFKUk44CZ23g-3H5GR3h_xNawydaFPICLjaU'
-var accessToken = 'Bearer ya29.Ci86AyphwhFEQ4Khs2Ecdz02qj2iP1T2V-ZFyi3gOoGcMCBEa7kNRZ8SoApJtuCc7g'
+var spreadsheetId = '1J67M4Aup-h-3zsAChmPecU5UqbuG6_8EbjLuLf3Wdfo'
+var accessToken = 'Bearer ya29.Ci87A3edMjEIM_84T8R_WBHj3ct0ALYkNuTRIQCzOkdTICf51GAGWB7YYv9TWhYS2Q'
 
 
 var titleName = "YaoPingping"
@@ -57,10 +57,7 @@ describe('GOOGLE SHEETS API', function () {
             .set('Content-Type', jsonType)
             .send(singleSheetBody)
             .expect(function (res) {
-                console.log(res.body)
                 deleteId = res.body.replies[0].addSheet.properties.sheetId
-                console.log(res.body.replies[0].addSheet.properties.sheetId)
-                console.log(res.body)
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
                 expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName)
             }).end(done)
@@ -112,7 +109,6 @@ describe('GOOGLE SHEETS API', function () {
             .set('Content-Type', jsonType)
             .send(requestBody)
             .expect(function(res){
-                console.log(res)
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
                 expect(res.body.replies[0].addSheet.properties.title).to.equal(titleName1)
                 expect(res.body.replies[1].addSheet.properties.title).to.equal(titleName2)
@@ -153,7 +149,6 @@ describe('GOOGLE SHEETS API', function () {
     it('Write to multiple ranges', function (done) {
 
         var requestBody = {
-            "valueInputOption": "USER_ENTERED",
             "data": [
                 {
                     "range": "pingping1!A5:C5",
@@ -203,8 +198,6 @@ describe('GOOGLE SHEETS API', function () {
             .set('Content-Type', jsonType)
             .send(deleteBody)
             .expect(function (res) {
-
-               console.log(res.body)
                 expect(res.body.spreadsheetId).to.equal(spreadsheetId)
 
             }).end(done)
