@@ -311,6 +311,20 @@ PUT https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}
 #### Grunt运行所有books和sheets API的用例, check测试结果
 
 
+# can use Mochawesome to your project
+
+1. Add MOCHAWESOME to your project
+
+npm install --save-dev mochawesome
+
+2. tell mocha to use the mochawesome reporter
+
+grunt mochaTest  -- reporter mochawesome
+
+
+
+
+
 
 
 
